@@ -27,3 +27,7 @@ a.map(n=>r[n]).join("");
 Author - Ciarán
 
 [Join Discord](https://discord.gg/z2r8e8neQ7)
+
+# Megacloud (videostr.net) key updater)
+
+currently only have two ways to get the key if i find other ways i will add it
