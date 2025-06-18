@@ -1,0 +1,11 @@
+import CryptoJS from "crypto-js";
+import axios from 'axios';
+
+const source = 'U2FsdGVkX1+bZ52IojdWGMt9L134KGI7PeQuiMtIpkf4odjfQqiJDTxv2VeMGMJVULu7KvpI3oGpYK/GaI7aPsDRGAB/MNMkEDDt1v4AP0341tzrAEszF8jxjUe90+Nj1hWIW7zMnCj7erOWm2TjsHJzBZtCd8tqA3vjUoPxXJr+/MaKmWmwCsmvLX6LjNKgAcuAF3eVRRlfVGQmUBup2KB6NaMCEJZc84jqHth1qgisIMEs7ujuWYh5k8KDtmiHxwpvRpESeJFbMyUzm8Pdexzy2kfIlhulwnyNCiOdC9D5BPHswhMkZPURf1+sSU44XFP8HVhX2ppiE8lThiPpDySNDvfQYDOJsLdt9W4uIza6RR+fsiW0TlgyS9kdJ904q7Ha2ohfnVbR8ivpYTkhnGAbt5lOvNWFqepctq/PKMjcccFn45PSEQKgZ+XzmRXGUsBorqMO1Jn9hiHnGD8Kkf477+ooa8ZqEKYXYMLs0aR4XuWZruF7Rj4Ha2u+zMD3XfVYQPKI+7Z875Q3vzUTUj7KIEKBpNjcyIZSyQFHhgNsjLhRgU7lxhkbfrJhrDjoTj7Xtvj6epg6hxoGdwlKdsXdwDy4h82EUu7EKA9rtTVx+eQ66z1pb3NgEAE5kME4n0P79RRooVwf7q4BtJSfy8NyyFha7S+Imqe1Mqgq2n4='
+const key = '1d2ec7418c84afcff6c4a7c75d31342206f1d24f963c5c1ae09cdc509e1f3c3d';
+
+const decrypted = CryptoJS.AES.decrypt(source, key);
+
+const result = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8));
+
+console.log('Decrypted JSON:', JSON.stringify(result));
