@@ -23,16 +23,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run deobfuscation script
+      - name: Run update script
         run: node index.js
 
-      - name: Commit and push key.txt
+      - name: Commit and push updated key.txt
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if [ -n "$(git status --porcelain key.txt)" ]; then
+          if [[ `git status --porcelain key.txt` ]]; then
             git add key.txt
             git commit -m "🔑 update key.txt [bot commit]"
             git push
           else
-            echo "No changes to commit."
+            echo "No changes to key.txt"
