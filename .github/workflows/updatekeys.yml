@@ -2,7 +2,7 @@ name: update keys
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Run every hour
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repo with PAT access
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_PAT }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -25,13 +27,9 @@ jobs:
         run: node index.js
 
       - name: Commit and push updated key.txt
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config --global user.name "bot"
           git config --global user.email "bot@bigfatbot.dev"
-
-          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}
 
           git add key.txt
 
@@ -39,5 +37,5 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "🔑 update key.txt [bot commit]"
-            git push origin HEAD
+            git push
           fi
