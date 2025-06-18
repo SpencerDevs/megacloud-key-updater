@@ -88,6 +88,13 @@ async function decrypt() {
 export async function key() {
     const code = fs.readFileSync('output.js', 'utf-8');
 
+    const atobMatch = code.match(/([a-zA-Z0-9_$]+)\s*=\s*T0iou\(["']([A-Za-z0-9+/=]+)["']\);\s*([a-zA-Z0-9_$]+)\s*=\s*["']([a-fA-F0-9]{32,64})["']/);
+    if (atobMatch) {
+        const atobValue = Buffer.from(atobMatch[2], 'base64').toString('utf-8');
+        const concatValue = atobMatch[4];
+        return atobValue + concatValue;
+    }
+
     const arrayMatch = code.match(/C\s*=\s*\[([^\]]+)\]/);
     const indexMatch = code.match(/q\s*=\s*\[([^\]]+)\]/);
 
