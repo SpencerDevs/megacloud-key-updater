@@ -28,11 +28,11 @@ jobs:
 
       - name: Commit and push updated key.txt
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          if [[ `git status --porcelain key.txt` ]]; then
-            git add key.txt
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add key.txt
+          git diff --cached --quiet && echo "No changes to commit" || (
             git commit -m "🔑 update key.txt [bot commit]"
             git push
-          else
-            echo "No changes to key.txt"
+          )
