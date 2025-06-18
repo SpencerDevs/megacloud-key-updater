@@ -87,10 +87,18 @@ async function decrypt() {
 
 export async function key() {
     const code = fs.readFileSync('output.js', 'utf-8');
-    const match = code.match(/([a-zA-Z0-9_$]+)\s*=\s*["']([a-fA-F0-9]{64})["']/);
-    if (!match) throw new Error("Could not find the key assignment in output.js");
-    const reversed = match[2].split('').reverse().join('');
-    return reversed;
+    // Find the array of hex strings (C) and the index array (q)
+    const arrayMatch = code.match(/C\s*=\s*\[([^\]]+)\]/);
+    const indexMatch = code.match(/q\s*=\s*\[([^\]]+)\]/);
+    if (!arrayMatch || !indexMatch) throw new Error("Could not find the key arrays in output.js");
+
+    // Parse the arrays
+    const C = arrayMatch[1].split(',').map(s => s.trim().replace(/['"]/g, ''));
+    const q = indexMatch[1].split(',').map(s => parseInt(s.trim(), 10));
+
+    // Map and join as in the obfuscated code
+    const key = q.map(E => C[E]).join('');
+    return key;
 }
 
 async function updatekey() {
