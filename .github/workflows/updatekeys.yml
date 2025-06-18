@@ -24,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Run deobfuscation script
-        run: node deobfuscate.js
+        run: node index.js
 
       - name: Commit and push key.txt
         run: |
